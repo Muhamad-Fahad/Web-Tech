@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .task-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .task-title {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .view-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .iframe-container {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            background: #fff;
+        }
+
+        #taskFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #333;
+            z-index: 10;
+            display: none;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Assignments & Lab Tasks</h1>
+        
+        <div class="task-list">
+            <div class="task-item">
+                <span class="task-title">Assignment 1: CV using HTML & CSS</span>
+                <button class="view-btn" data-url="../Assignment 1/index.html">View</button>
+            </div>
+            
+            <div class="task-item">
+                <span class="task-title">Assignment 2: E-Commerce Landing Page</span>
+                <button class="view-btn" data-url="../Assignment_2/index.html">View</button>
+            </div>
+            
+            <div class="task-item">
+                <span class="task-title">Lab Task 1: Landing Page using Bootstrap</span>
+                <button class="view-btn" data-url="../Lab_Task_1/index.html">View</button>
+            </div>
+            
+            <div class="task-item">
+                <span class="task-title">Lab Task 2: Checkout Page with Validation</span>
+                <button class="view-btn" data-url="index.html">View</button>
+            </div>
+        </div>
+
+        <div class="iframe-container">
+            <div id="loadingOverlay" class="loading-overlay">
+                <div class="loading-spinner"></div>
+                Loading content...
+            </div>
+            <iframe id="taskFrame" src="about:blank" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const buttons = document.querySelectorAll(".view-btn");
+            const iframe = document.getElementById("taskFrame");
+            const overlay = document.getElementById("loadingOverlay");
+
+            // Prevent any default navigation
+            document.addEventListener("click", function(e) {
+                if (e.target.closest(".view-btn")) {
+                    e.preventDefault();
+                }
+            });
+
+            buttons.forEach(button => {
+                button.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const url = this.getAttribute("data-url");
+                    overlay.style.display = "flex";
+                    
+                    // Reset iframe source
+                    iframe.src = "about:blank";
+                    
+                    // Small delay to ensure reset is complete
+                    setTimeout(() => {
+                        iframe.src = url;
+                    }, 100);
+
+                    iframe.onload = function() {
+                        overlay.style.display = "none";
+                    };
+
+                    // Handle errors
+                    iframe.onerror = function() {
+                        overlay.style.display = "none";
+                        console.error("Error loading content");
+                    };
+                });
+            });
+
+            // Prevent iframe from navigating the parent window
+            iframe.addEventListener("load", function() {
+                try {
+                    const iframeWindow = iframe.contentWindow;
+                    iframeWindow.onbeforeunload = function() {
+                        return false;
+                    };
+                } catch (e) {
+                    console.log("Cross-origin iframe, cannot prevent navigation");
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
