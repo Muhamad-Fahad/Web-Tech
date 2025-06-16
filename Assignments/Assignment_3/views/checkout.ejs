@@ -1,0 +1,70 @@
+<div class="checkout-container" style="margin-top: 120px;">
+        <div class="checkout-header">
+            <h1>Checkout</h1>
+            <p>Please fill in your details to complete your purchase</p>
+        </div>
+        
+        <form id="checkoutForm" class="checkout-form">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" required 
+                       pattern="[A-Za-z\s]+" title="Only alphabets and spaces allowed"
+                       class="form-control" placeholder="Enter your full name">
+                <span class="error" id="fullNameError"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required 
+                       class="form-control" placeholder="Enter your email">
+                <span class="error" id="emailError"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required 
+                       pattern="[0-9]{10,15}" title="10-15 digits required"
+                       class="form-control" placeholder="Enter your phone number">
+                <span class="error" id="phoneError"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" required 
+                          class="form-control" placeholder="Enter your full address"></textarea>
+                <span class="error" id="addressError"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="cardNumber">Credit Card Number</label>
+                <input type="text" id="cardNumber" name="cardNumber" required 
+                       pattern="[0-9]{16}" title="16 digits required"
+                       maxlength="16" class="form-control" 
+                       placeholder="Enter 16-digit card number">
+                <span class="error" id="cardNumberError"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date</label>
+                <input type="month" id="expiryDate" name="expiryDate" required 
+                       class="form-control">
+                <span class="error" id="expiryDateError"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" required 
+                       pattern="[0-9]{3}" title="3 digits required"
+                       maxlength="3" class="form-control" 
+                       placeholder="Enter 3-digit CVV">
+                <span class="error" id="cvvError"></span>
+            </div>
+            
+            <button type="submit" class="submit-btn">SUBMIT ORDER</button>
+        </form>
+    </div>
+
+    <!-- Add this before the closing body tag -->
+    <script src="/script.js"></script>
+</body>
+</html>

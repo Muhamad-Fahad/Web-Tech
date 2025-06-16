@@ -18,6 +18,8 @@ body {
     font-family: 'Univers', Arial, sans-serif;
     line-height: 1.6;
     color: #333;
+    padding-top: 0;
+    margin: 0;
 }
 
 /* Update specific text elements to ensure font consistency */
@@ -45,6 +47,7 @@ body {
     width: 100%;
     height: 100vh;
     overflow: hidden;
+    margin-top: 0;
 }
 
 /* Bootstrap Carousel Customization */
@@ -146,13 +149,27 @@ body {
 .navbar {
     background-color: transparent;
     padding: 0.8rem 5%;
-    position: fixed;
+    position: absolute;
     width: 100%;
     z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: all 0.3s ease;
+    top: 0;
+    left: 0;
+}
+
+.navbar.fixed {
+    position: fixed;
+    background-color: white;
+}
+
+.navbar.fixed .logo h1,
+.navbar.fixed .nav-links a,
+.navbar.fixed .search-icon,
+.navbar.fixed .cart-icon {
+    color: #333;
 }
 
 .navbar:hover {
@@ -197,7 +214,7 @@ body {
 
 .logo h1 {
     font-size: 1.6rem;
-    color: white;
+    color: #333;
     font-weight: bold;
     letter-spacing: 2px;
     transition: color 0.3s ease;
@@ -216,7 +233,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #333;
     transform: rotate(-45deg);
     transition: color 0.3s ease;
 }
@@ -230,7 +247,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #333;
     opacity: 0.8;
     transition: color 0.3s ease;
 }
@@ -288,6 +305,9 @@ body {
     justify-content: center;
     padding: 0 1rem;
     position: relative;
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
 }
 
 .nav-item {
@@ -296,7 +316,7 @@ body {
 
 .nav-item > a {
     text-decoration: none;
-    color: white;
+    color: #333;
     font-weight: 400;
     text-transform: uppercase;
     font-size: 0.8rem;
@@ -1094,7 +1114,7 @@ footer {
 
 /* Update navbar to handle mega menu positioning */
 .navbar {
-    background-color: transparent;
+    background-color: white;
     padding: 0.8rem 5%;
     position: fixed;
     width: 100%;
@@ -1103,6 +1123,9 @@ footer {
     flex-direction: column;
     align-items: center;
     transition: all 0.3s ease;
+    top: 0;
+    left: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 /* Form Validation Styles */
@@ -1198,4 +1221,15 @@ footer {
     .checkout-form {
         padding: 20px;
     }
+}
+
+/* Task Loader Styles */
+.task-loader {
+    position: relative;
+    width: 100%;
+    background: white;
+    padding: 20px;
+    margin-top: 120px; /* Height of navbar */
+    z-index: 1;
+    border-bottom: 1px solid #eee;
 }
