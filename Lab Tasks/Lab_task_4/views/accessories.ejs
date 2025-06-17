@@ -1,0 +1,96 @@
+<div class="category-container">
+    <h1>ACCESSORIES</h1>
+    
+    <!-- Bags Section -->
+    <section class="product-section">
+        <h2>Bags</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="/accessories/aw22-9108-MILTYPE-Rollaway-Backpack_olive_10.jpg" alt="MILTYPE Rollaway Backpack">
+                <div class="product-info">
+                    <h3>MILTYPE Rollaway Backpack</h3>
+                    <p class="product-color">Olive</p>
+                    <p class="product-price">Price: $250</p>
+                    <p class="product-description">A versatile and durable backpack designed for everyday use, featuring multiple compartments and military-inspired details.</p>
+                    <form action="/cart/add/<%= products.find(product => product.title === 'MILTYPE Rollaway Backpack')._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/accessories/aw25_s_6070_woodland_10.jpg" alt="Utility Bag">
+                <div class="product-info">
+                    <h3>Utility Hat</h3>
+                    <p class="product-color">Woodland</p>
+                    <p class="product-price">Price: $50</p>
+                    <p class="product-description">A durable and stylish hat with premium materials and finish.</p>
+                    <form action="/cart/add/<%= products.find(product => product.title === 'Utility Hat')._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Small Accessories Section -->
+    <section class="product-section">
+        <h2>Other Accessories</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="/accessories/trs_1116_olive_10.jpg" alt="Utility Pouch">
+                <div class="product-info">
+                    <h3>Utility Pouch</h3>
+                    <p class="product-color">Olive</p>
+                    <p class="product-price">Price: $15</p>
+                    <p class="product-description">A compact and versatile pouch for organizing your small essentials.</p>
+                    <form action="/cart/add/<%= products.find(product => product.title === 'Utility Pouch')._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/accessories/TRS-0401-PRI_17.jpg" alt="Keychain">
+                <div class="product-info">
+                    <h3>Premium Shoes</h3>
+                    <p class="product-color">Black</p>
+                    <p class="product-price">Price: $100</p>
+                    <p class="product-description">A durable and stylish shoes with premium materials and finish.</p>
+                    <form action="/cart/add/<%= products.find(product => product.title === 'Premium Shoes')._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Accessories Section -->
+    <section class="product-section">
+        <h2>Special Accessories</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="/accessories/1115_olive_edit.jpg" alt="Special Edition Pouch">
+                <div class="product-info">
+                    <h3>Special Edition Pouch</h3>
+                    <p class="product-color">Olive</p>
+                    <p class="product-price">Price: $30</p>
+                    <p class="product-description">A limited edition pouch featuring premium materials and unique design elements.</p>
+                    <form action="/cart/add/<%= products.find(product => product.title === 'Special Edition Pouch')._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/accessories/TRS-1300-OLI_50.jpg" alt="Utility Accessory">
+                <div class="product-info">
+                    <h3>Keychain</h3>
+                    <p class="product-color">Olive</p>
+                    <p class="product-price">Price: $10</p>
+                    <p class="product-description">A durable and stylish keychain with premium materials and finish.</p>
+                    <form action="/cart/add/<%= products.find(product => product.title === 'Keychain')._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div> 

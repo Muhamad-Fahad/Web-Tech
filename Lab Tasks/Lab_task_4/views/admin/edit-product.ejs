@@ -1,0 +1,52 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Edit Product</h2>
+                </div>
+                <div class="card-body">
+                    <form action="/admin/products/edit/<%= product._id %>" method="POST">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" value="<%= product.title %>" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="price" name="price" step="0.01" value="<%= product.price %>" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <select class="form-control" id="category" name="category" required>
+                                <option value="clothing" <%= product.category === 'clothing' ? 'selected' : '' %>>Clothing</option>
+                                <option value="footwear" <%= product.category === 'footwear' ? 'selected' : '' %>>Footwear</option>
+                                <option value="accessories" <%= product.category === 'accessories' ? 'selected' : '' %>>Accessories</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="imageUrl" class="form-label">Image URL</label>
+                            <input type="url" class="form-control" id="imageUrl" name="imageUrl" value="<%= product.imageUrl %>" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="4" required><%= product.description %></textarea>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="/admin/products" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Update Product</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %> 
