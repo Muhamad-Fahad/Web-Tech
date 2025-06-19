@@ -1,0 +1,41 @@
+<div class="container mt-4">
+    <h1>Edit Vehicle</h1>
+    <form action="/admin/vehicles/<%= vehicle._id %>" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" value="<%= vehicle.name %>" required>
+        </div>
+        <div class="form-group">
+            <label>Brand</label>
+            <input type="text" name="brand" class="form-control" value="<%= vehicle.brand %>" required>
+        </div>
+        <div class="form-group">
+            <label>Type</label>
+            <select name="type" class="form-control" required>
+                <option value="">Select type</option>
+                <option value="sedan" <%= vehicle.type === 'sedan' ? 'selected' : '' %>>Sedan</option>
+                <option value="SUV" <%= vehicle.type === 'SUV' ? 'selected' : '' %>>SUV</option>
+                <option value="truck" <%= vehicle.type === 'truck' ? 'selected' : '' %>>Truck</option>
+                <option value="hatchback" <%= vehicle.type === 'hatchback' ? 'selected' : '' %>>Hatchback</option>
+                <option value="coupe" <%= vehicle.type === 'coupe' ? 'selected' : '' %>>Coupe</option>
+                <option value="convertible" <%= vehicle.type === 'convertible' ? 'selected' : '' %>>Convertible</option>
+                <option value="van" <%= vehicle.type === 'van' ? 'selected' : '' %>>Van</option>
+                <option value="other" <%= vehicle.type === 'other' ? 'selected' : '' %>>Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Price</label>
+            <input type="number" name="price" class="form-control" min="0" value="<%= vehicle.price %>" required>
+        </div>
+        <div class="form-group">
+            <label>Current Image</label><br>
+            <img src="<%= vehicle.image %>" alt="image" width="120">
+        </div>
+        <div class="form-group">
+            <label>Change Image</label>
+            <input type="file" name="image" class="form-control-file" accept="image/*">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Vehicle</button>
+        <a href="/admin/vehicles" class="btn btn-secondary">Cancel</a>
+    </form>
+</div> 

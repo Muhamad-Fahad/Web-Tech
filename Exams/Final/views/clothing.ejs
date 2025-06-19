@@ -1,0 +1,31 @@
+<div class="category-container">
+    <h1>CLOTHING</h1>
+    <section class="product-section">
+        <h2>All Products</h2>
+        <div class="products-grid">
+            <% products.forEach(function(product) { 
+                let imgMap = {
+                    "maharishi black t shirt": "/Clothing/aw25_s_1592_black_10.jpg",
+                    "maharishi white t shirt": "/Clothing/aw25_s_1592_white_10.jpg",
+                    "black logo pajamas": "/Clothing/aw25_s_6205_black_10.jpg",
+                    "olive logo pajamas": "/Clothing/aw25_s_6205_oliveog-107f_10.jpg",
+                    "black pants": "/Clothing/aw25_s_6237_black_10_2.jpg",
+                    "olive pants": "/Clothing/aw25_s_6237_oliveog-107f_10_2.jpg"
+                };
+                let imgFile = imgMap[product.title.toLowerCase()] || '/clothing/default.jpg';
+            %>
+                <div class="product-card">
+                    <img src="<%= imgFile %>" alt="<%= product.title %>">
+                    <div class="product-info">
+                        <h3><%= product.title %></h3>
+                        <p class="product-price">Price: $<%= product.price %></p>
+                        <p class="product-description"><%= product.description %></p>
+                        <form action="/cart/add/<%= product._id %>" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </section>
+</div> 

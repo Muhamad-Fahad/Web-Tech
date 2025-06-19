@@ -1,0 +1,96 @@
+<div class="category-container">
+    <h1>FOOTWEAR</h1>
+    
+    <!-- Birkenstock Section -->
+    <section class="product-section">
+        <h2>Birkenstock</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="/footwear/maharishi_birkenstock_terra_black_black_10.jpg" alt="Birkenstock Terra">
+                <div class="product-info">
+                    <h3>Birkenstock Terra</h3>
+                    <p class="product-color">Black</p>
+                    <p class="product-price">Price: $<%= products.find(product => product.title === 'Birkenstock Terra').price %></p>
+                    <p class="product-description">Classic Birkenstock sandals with premium leather straps and signature footbed for ultimate comfort.</p>
+                    <form action="/cart/add/<%= products.find(product => product.title === 'Birkenstock Terra')._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/footwear/trs_0154-birkenstock-zurich-sfb-vl_taupe_20.jpg" alt="Birkenstock Zurich">
+                <div class="product-info">
+                    <h3>Birkenstock Zurich</h3>
+                    <p class="product-color">Taupe</p>
+                    <p class="product-price">Price: $<%= products.find(product => product.title === 'Birkenstock Zurich').price %></p>
+                    <p class="product-description">Premium leather sandals with adjustable straps and the iconic Birkenstock footbed.</p>
+                    <form action="/cart/add/<%= products.find(product => product.title === 'Birkenstock Zurich')._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Footwear Section -->
+    <section class="product-section">
+        <h2>Technical Footwear</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="/footwear/technical_aw24-17.jpg" alt="Technical Boots">
+                <div class="product-info">
+                    <h3>Technical Boots</h3>
+                    <p class="product-color">Black</p>
+                    <p class="product-price">Price: $<%= products.find(product => product.title === 'Technical Boots').price %></p>
+                    <p class="product-description">High-performance technical boots designed for durability and comfort in any condition.</p>
+                    <form action="/cart/add/<%= products.find(product => product.title === 'Technical Boots')._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/footwear/technical_aw24-1_aebdf274-b49d-4bba-b0fc-0874a6d1445e.jpg" alt="Utility Shoes">
+                <div class="product-info">
+                    <h3>Utility Shoes</h3>
+                    <p class="product-color">Black</p>
+                    <p class="product-price">Price: $<%= products.find(product => product.title === 'Utility Shoes').price %></p>
+                    <p class="product-description">Versatile utility shoes combining style and functionality for everyday wear.</p>
+                    <form action="/cart/add/<%= products.find(product => product.title === 'Utility Shoes')._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Edition Section -->
+    <section class="product-section">
+        <h2>Special Edition</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="/footwear/trs_1218_desert_10.jpg" alt="Desert Boots">
+                <div class="product-info">
+                    <h3>Desert Boots</h3>
+                    <p class="product-color">Desert</p>
+                    <p class="product-price">Price: $<%= products.find(product => product.title === 'Desert Boots').price %></p>
+                    <p class="product-description">Special edition desert boots featuring premium materials and unique design elements.</p>
+                    <form action="/cart/add/<%= products.find(product => product.title === 'Desert Boots')._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/footwear/trs_0273_black_10.jpg" alt="Limited Edition Sneakers">
+                <div class="product-info">
+                    <h3>Birkenstock Boston</h3>
+                    <p class="product-color">Black</p>
+                    <p class="product-price">Price: $<%= products.find(product => product.title === 'Birkenstock Boston').price %></p>
+                    <p class="product-description">Exclusive Birkenstock Boston with premium materials and unique design details.</p>
+                    <form action="/cart/add/<%= products.find(product => product.title === 'Birkenstock Boston')._id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div> 

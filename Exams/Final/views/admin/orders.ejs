@@ -1,0 +1,120 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <h1>Manage Orders</h1>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% orders.forEach(order => { %>
+                            <tr>
+                                <td><%= order._id %></td>
+                                <td>
+                                    <%= order.user.username %><br>
+                                    <small class="text-muted"><%= order.user.email %></small>
+                                </td>
+                                <td>
+                                    <% order.items.forEach(item => { %>
+                                        <div><%= item.product.title %> x <%= item.quantity %></div>
+                                    <% }); %>
+                                </td>
+                                <td>$<%= order.total %></td>
+                                <td>
+                                    <form action="/admin/orders/update-status/<%= order._id %>" method="POST" class="d-inline">
+                                        <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                                            <option value="pending" <%= order.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                                            <option value="processing" <%= order.status === 'processing' ? 'selected' : '' %>>Processing</option>
+                                            <option value="shipped" <%= order.status === 'shipped' ? 'selected' : '' %>>Shipped</option>
+                                            <option value="delivered" <%= order.status === 'delivered' ? 'selected' : '' %>>Delivered</option>
+                                            <option value="cancelled" <%= order.status === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
+                                        </select>
+                                    </form>
+                                </td>
+                                <td><%= new Date(order.createdAt).toLocaleDateString() %></td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#orderModal<%= order._id %>">
+                                        View Details
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- Order Details Modal -->
+                            <div class="modal fade" id="orderModal<%= order._id %>" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Order Details</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h6>Customer Information</h6>
+                                            <p>
+                                                Name: <%= order.user.username %><br>
+                                                Email: <%= order.user.email %>
+                                            </p>
+
+                                            <h6>Order Items</h6>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price</th>
+                                                        <th>Subtotal</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% order.items.forEach(item => { %>
+                                                        <tr>
+                                                            <td><%= item.product.title %></td>
+                                                            <td><%= item.quantity %></td>
+                                                            <td>$<%= item.product.price %></td>
+                                                            <td>$<%= (item.quantity * item.product.price).toFixed(2) %></td>
+                                                        </tr>
+                                                    <% }); %>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                                                        <td><strong>$<%= order.total %></strong></td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+
+                                            <% if (order.shippingAddress) { %>
+                                                <h6>Shipping Address</h6>
+                                                <p>
+                                                    <%= order.shippingAddress.street %><br>
+                                                    <%= order.shippingAddress.city %>, <%= order.shippingAddress.state %> <%= order.shippingAddress.zipCode %><br>
+                                                    <%= order.shippingAddress.country %>
+                                                </p>
+                                            <% } else { %>
+                                                <h6>Shipping Address</h6>
+                                                <p class="text-muted">No shipping address provided</p>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %> 
