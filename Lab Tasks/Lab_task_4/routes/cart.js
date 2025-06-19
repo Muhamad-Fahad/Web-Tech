@@ -12,8 +12,17 @@ const initCart = (req, res, next) => {
     next();
 };
 
+// Middleware to block admin from cart/checkout/order actions
+const blockAdmin = (req, res, next) => {
+    if (req.session.user && req.session.user.isAdmin) {
+        req.flash('error', "This feature isn't for the admin.");
+        return res.redirect('/admin');
+    }
+    next();
+};
+
 // Add to cart
-router.post('/add/:productId', initCart, async (req, res) => {
+router.post('/add/:productId', blockAdmin, initCart, async (req, res) => {
     try {
         const product = await Product.findById(req.params.productId);
         if (!product) {
@@ -43,14 +52,14 @@ router.post('/add/:productId', initCart, async (req, res) => {
 });
 
 // View cart
-router.get('/', initCart, (req, res) => {
+router.get('/', blockAdmin, initCart, (req, res) => {
     const cart = req.session.cart || [];
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     res.render('cart', { cart, total });
 });
 
 // Update cart item quantity
-router.post('/update/:productId', initCart, (req, res) => {
+router.post('/update/:productId', blockAdmin, initCart, (req, res) => {
     try {
         const { quantity } = req.body;
         const cartItem = req.session.cart.find(item => item.productId.toString() === req.params.productId);
@@ -71,7 +80,7 @@ router.post('/update/:productId', initCart, (req, res) => {
 });
 
 // Remove item from cart
-router.post('/remove/:productId', initCart, (req, res) => {
+router.post('/remove/:productId', blockAdmin, initCart, (req, res) => {
     try {
         req.session.cart = req.session.cart.filter(item => item.productId.toString() !== req.params.productId);
         req.flash('success', 'Item removed from cart');
@@ -83,7 +92,7 @@ router.post('/remove/:productId', initCart, (req, res) => {
 });
 
 // Checkout page
-router.get('/checkout', initCart, (req, res) => {
+router.get('/checkout', blockAdmin, initCart, (req, res) => {
     const cart = req.session.cart || [];
     if (cart.length === 0) {
         req.flash('error', 'Your cart is empty');
@@ -94,7 +103,7 @@ router.get('/checkout', initCart, (req, res) => {
 });
 
 // Place order
-router.post('/place-order', initCart, async (req, res) => {
+router.post('/place-order', blockAdmin, initCart, async (req, res) => {
     try {
         const { name, phone, address } = req.body;
         const cart = req.session.cart || [];
@@ -114,7 +123,7 @@ router.post('/place-order', initCart, async (req, res) => {
 
         const order = new Order({
             user: {
-                userId: req.session.user.id,
+                userId: req.session.user._id,
                 name,
                 phone,
                 address
@@ -137,66 +146,6 @@ router.post('/place-order', initCart, async (req, res) => {
         console.error('Order placement error:', error);
         req.flash('error', 'Error placing order. Please try again.');
         res.redirect('/cart/checkout');
-    }
-});
-
-// Test route to create an order and verify collection
-router.get('/test-order', async (req, res) => {
-    try {
-        const testOrder = new Order({
-            user: {
-                name: "Test User",
-                phone: "1234567890",
-                address: "Test Address"
-            },
-            items: [{
-                product: new mongoose.Types.ObjectId(),
-                title: "Test Product",
-                quantity: 1,
-                price: 99.99
-            }],
-            totalPrice: 99.99,
-            status: 'pending'
-        });
-
-        console.log('Attempting to create test order...');
-        const savedOrder = await testOrder.save();
-        console.log('Test order saved:', savedOrder);
-        
-        res.json({ 
-            message: 'Test order created successfully',
-            order: savedOrder
-        });
-    } catch (error) {
-        console.error('Error creating test order:', error);
-        res.status(500).json({ 
-            message: 'Error creating test order',
-            error: error.message
-        });
-    }
-});
-
-// Route to manually create orders collection
-router.get('/create-collection', async (req, res) => {
-    try {
-        const db = mongoose.connection.db;
-        console.log('Creating orders collection...');
-        
-        // Create the collection
-        await db.createCollection('orders');
-        console.log('Orders collection created');
-        
-        // Create indexes
-        await db.collection('orders').createIndex({ createdAt: -1 });
-        console.log('Orders collection index created');
-        
-        res.json({ message: 'Orders collection created successfully' });
-    } catch (error) {
-        console.error('Error creating orders collection:', error);
-        res.status(500).json({ 
-            message: 'Error creating orders collection',
-            error: error.message
-        });
     }
 });
 

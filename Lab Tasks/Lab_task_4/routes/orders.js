@@ -10,10 +10,19 @@ const isAuthenticated = (req, res, next) => {
     res.redirect('/auth/login');
 };
 
-// Get user's orders
-router.get('/my-orders', isAuthenticated, async (req, res) => {
+// Middleware to check if user is admin
+const isAdmin = (req, res, next) => {
+    if (req.session.user && req.session.user.isAdmin) {
+        return next();
+    }
+    req.flash('error', 'Access denied. Admin privileges required.');
+    res.redirect('/');
+};
+
+// Get user's orders (admin only)
+router.get('/my-orders', isAdmin, async (req, res) => {
     try {
-        const orders = await Order.find({ 'user.userId': req.session.user.id })
+        const orders = await Order.find({ 'user.userId': req.session.user._id })
             .sort({ createdAt: -1 })
             .populate('items.product');
         
